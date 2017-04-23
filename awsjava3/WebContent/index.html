@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script    src="/sap/ui5/1/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.commons,sap.m,sap.ui.table"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+			
+		<script src="dist/loading.min.js"></script>
+		<script src="dist/jquery.loading.js"></script>
+		<script src="js/hcp.js"></script>
+		<script src="js/ml.js"></script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+		<script>
+		var oModel = new sap.ui.model.odata.ODataModel("Services/TestXS.xsodata/",false);
+		//	var oTable = new sap.ui.table.Table({ visibleRowCount:5} );
+			var oTable = new sap.ui.table.Table({
+		title: "Bank Payment",
+		visibleRowCount: 7,
+		firstVisibleRow: 3
+
+		
+	});
+			var testID = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Invoice"}),               
+			                    template: new sap.ui.commons.TextView().bindProperty("text", "LAUFI")  ,
+			                     width: "100%"});
+			oTable.addColumn(testID);
+			var testName = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Vendor"}),               
+			                        template: new sap.ui.commons.TextView().bindProperty("text", "LIFNR")  ,
+			                         width: "100%"});
+			oTable.addColumn(testName);
+			var kunnr1 = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Customer"}),               
+	            template: new sap.ui.commons.TextView().bindProperty("text", "KUNNR")  ,
+	             width: "100%"});
+				oTable.addColumn(kunnr1);
+			oTable.setModel(oModel);
+			oTable.bindRows("/ZZPayment");
+			oTable.placeAt("uiArea");
+			
+			var oTable1 = new sap.ui.table.Table({
+				title: "Customer Open Item",
+				visibleRowCount: 7,
+				firstVisibleRow: 3
+
+				
+			});
+					var kunnr = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Customer"}),               
+					                    template: new sap.ui.commons.TextView().bindProperty("text", "KUNNR")  ,
+					                     width: "100%"});
+					oTable1.addColumn(kunnr);
+					var augbl = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Invoice"}),               
+					                        template: new sap.ui.commons.TextView().bindProperty("text", "AUGBL")  ,
+					                         width: "100%"});
+					oTable1.addColumn(augbl);
+					var belnr = new sap.ui.table.Column({label: new sap.ui.commons.Label({text: "Billing Document"}),               
+	                    template: new sap.ui.commons.TextView().bindProperty("text", "BELNR")  ,
+	                     width: "100%"});
+					oTable1.addColumn(belnr);
+					oTable1.setModel(oModel);
+					oTable1.bindRows("/ZZCustomerItem");
+					oTable1.placeAt("uiArea1");
+					
+	        // create the button instance
+	       
+				
+	       /* var myButton = new sap.ui.commons.Button("btn");
+		sap.ui.localResources("WebContent");
+					var app = new sap.m.App({initialPage:"Test"});
+					var page = sap.ui.view({id:"Test", viewName:"WebContent.testx.Test", type:sap.ui.core.mvc.ViewType.JS});
+					app.addPage(page);
+					app.placeAt("uiArea");
+	        // set properties, e.g. the text (there is also a shorter way of setting several properties)
+	        myButton.setText("Hello World!");
+
+	        // attach an action to the button's "press" event (use jQuery to fade out the button)
+	        myButton.attachPress(function(){$("#btn").fadeOut()});
+
+	        // place the button into the HTML element defined below
+	        myButton.placeAt("uiArea");
+	*/
+	        // an alternative, more jQuery-like notation for the same is:
+	        /*
+	        $(function(){
+	            $("#uiArea").sapui("Button", "btn", {
+	                text:"Hello World!", 
+	                press:function(){$("#btn").fadeOut();}
+	            });
+	        });
+	        */
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="uiArea"></div>
+    <div id="uiArea1"></div>
+	</body>
+</html>
